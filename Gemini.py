@@ -2209,6 +2209,9 @@ def internal_error(error):
 if __name__ == "__main__":
     init_db()
     
+    # קבל PORT מ-environment variables (נדרש ל-Railway/Heroku/Render)
+    port = int(os.environ.get("PORT", 5000))
+    
     print("🚀 Starting Gemini AI with Authentication...")
     print("🔐 Features:")
     print("   - User registration and login")
@@ -2221,16 +2224,15 @@ if __name__ == "__main__":
     print("   - Improved user chat bubbles with proper user icon")
     print("   - Intelligent search detection with 'Searching...' animation")
     print("📝 Setup Instructions:")
-    print("   1. Run the application")
-    print("   2. Register a new account or login")
-    print("   3. Go to Settings and add your API keys:")
+    print("   1. Register a new account or login")
+    print("   2. Go to Settings and add your API keys:")
     print("      - Google Gemini API Key (required)")
     print("      - SerpAPI Key (optional, for web search)")
-    print("📡 Server starting on http://localhost:5000")
+    print(f"📡 Server starting on port {port}")
     
     app.run(
         host="0.0.0.0", 
-        port=5000, 
-        debug=True,
+        port=port,           # 🔑 זה החשוב! משתנה דינמי
+        debug=False,         # 🔑 False ב-production!
         threaded=True
     )
